@@ -3,4 +3,4 @@
 
 
 Main Repo: 
-https://github.com/Smudger1/FYP_Check-In_Beacon
+https://github.com/Smudger1/FYP_Mobile_App

@@ -68,7 +68,7 @@ provider:
 #    - exclude-me-dir/**
 
 custom:
-  beaconsTable: beacons
+  beaconsTable: venue-beacons
 
 functions:
   hello:
@@ -121,12 +121,12 @@ resources:
       Properties:
         TableName: ${self:custom.beaconsTable}
         AttributeDefinitions:
-          - AttributeName: Venue
+          - AttributeName: VenueID
             AttributeType: S
           - AttributeName: BeaconAddr
             AttributeType: S
         KeySchema:
-          - AttributeName: Venue
+          - AttributeName: VenueID
             KeyType: HASH
           - AttributeName: BeaconAddr
             KeyType: RANGE

@@ -68,7 +68,7 @@ provider:
 #    - exclude-me-dir/**
 
 custom:
-  venuesTable: venues
+  beaconsTable: beacons
 
 functions:
   hello:
@@ -116,18 +116,18 @@ functions:
 # you can add CloudFormation resource templates here
 resources:
   Resources:
-    MyDynamoDbTable:
+    BeaconTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.venuesTable}
+        TableName: ${self:custom.beaconsTable}
         AttributeDefinitions:
           - AttributeName: Venue
             AttributeType: S
-          - AttributeName: VenueID
+          - AttributeName: BeaconAddr
             AttributeType: S
         KeySchema:
           - AttributeName: Venue
             KeyType: HASH
-          - AttributeName: VenueID
+          - AttributeName: BeaconAddr
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST

@@ -25,6 +25,8 @@ provider:
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
   profile: serverlessUser
+  environment:
+    beaconsTable: ${self:custom.beaconsTable}
   iamRoleStatements:
       - Effect: Allow
         Action:
@@ -68,11 +70,17 @@ provider:
 #    - exclude-me-dir/**
 
 custom:
-  beaconsTable: venue-beacons
+  beaconsTable: beacons-table
 
 functions:
-  hello:
-    handler: handler.hello
+  verifyBeacons:
+    handler: lambdas/endpoints/verifyBeacons.handler
+    events:
+      - http:
+          path: verify-beacons/
+          method: POST
+          cors: true
+          private: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -121,13 +129,19 @@ resources:
       Properties:
         TableName: ${self:custom.beaconsTable}
         AttributeDefinitions:
-          - AttributeName: VenueID
-            AttributeType: S
           - AttributeName: BeaconAddr
             AttributeType: S
+          - AttributeName: VenueID
+            AttributeType: S
+          - AttributeName:
         KeySchema:
           - AttributeName: VenueID
             KeyType: HASH
-          - AttributeName: BeaconAddr
-            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: BeaconAddr-index
+            KeySchema:
+              - AttributeName: BeaconAddr
+                KeyType: HASH
+            Projection:
+                ProjectionType: "ALL"
         BillingMode: PAY_PER_REQUEST

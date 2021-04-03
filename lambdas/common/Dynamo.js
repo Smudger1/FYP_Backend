@@ -3,12 +3,13 @@ const AWS = require('aws-sdk');
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
 const Dynamo = {
-    async get(ID, TableName){
+    async get(GivenKey, ID, TableName){
         const params = {
             TableName,
-            Key: {
-                ID
-            },
+            Key:{
+                //"VenueID": "906eaf8c-330c-41b9-969f-efe99b6477b2"
+                "BeaconAddr": "DC:A6:32:86:F2:B2"
+            }
         };
 
         const data = await documentClient
@@ -20,7 +21,7 @@ const Dynamo = {
         }
         console.log(data);
 
-        return data.Item;
+        return data;
     },
 
     async write(data, TableName){

@@ -133,14 +133,25 @@ resources:
             AttributeType: S
           - AttributeName: VenueID
             AttributeType: S
-          - AttributeName:
+          - AttributeName: VenueName
+            AttributeType: S
+          - AttributeName: CheckInID
+            AttributeType: S
         KeySchema:
-          - AttributeName: VenueID
+          - AttributeName: BeaconAddr
             KeyType: HASH
         GlobalSecondaryIndexes:
-          - IndexName: BeaconAddr-index
+          - IndexName: BeaconAddr-Venue-index
             KeySchema:
-              - AttributeName: BeaconAddr
+              - AttributeName: VenueID
+                KeyType: HASH
+              - AttributeName: VenueName
+                KeyType: RANGE
+            Projection:
+              ProjectionType: "ALL"
+          - IndexName: BeaconAddr-Check-In-index
+            KeySchema:
+              - AttributeName: CheckInID
                 KeyType: HASH
             Projection:
                 ProjectionType: "ALL"

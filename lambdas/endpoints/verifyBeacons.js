@@ -24,10 +24,8 @@ exports.handler = async event => {
             return null;
         });
 
-        return Responses._400(currentBeacon)
-
         if (currentBeacon){
-            confirmedList.append(currentBeacon);
+            confirmedList = Object.assign(currentBeacon);
         }
     }
 

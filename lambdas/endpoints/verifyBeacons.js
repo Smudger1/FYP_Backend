@@ -16,7 +16,9 @@ exports.handler = async event => {
     }
 
     const beaconList = body.beacons;
-    let confirmedList = {};
+    let confirmedList = [];
+
+    confirmedList.push({"BeaconAddr": "DC:A6:32:86:F2:B6", "VenueID": "243a885b-7b91-491d-a300-b499e2cd7847", "VenueName": "One Eyed Dog"});
 
     for (const beaconListKey in beaconList) {
         const currentBeacon = await Dynamo.get('BeaconAddr', beaconListKey, beaconsTable).catch(err => {
@@ -25,7 +27,7 @@ exports.handler = async event => {
         });
 
         if (currentBeacon){
-            confirmedList = Object.assign(currentBeacon);
+            confirmedList.push(currentBeacon.Item);
         }
     }
 

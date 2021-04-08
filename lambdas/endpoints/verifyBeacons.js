@@ -1,7 +1,7 @@
 const Responses = require('../common/API_Responses');
 const Dynamo = require('../common/Dynamo');
 
-const beaconsTable = process.env.beaconsTable;
+const CheckInBeaconTable = process.env.CheckInBeaconTable;
 
 exports.handler = async event => {
     console.log('event', event)
@@ -18,10 +18,12 @@ exports.handler = async event => {
     const beaconList = body.beacons;
     let confirmedList = [];
 
-    confirmedList.push({"BeaconAddr": "DC:A6:32:86:F2:B6", "VenueID": "243a885b-7b91-491d-a300-b499e2cd7847", "VenueName": "One Eyed Dog"});
+    // Sample Data - for testing
+    confirmedList.push({"ID": "B#DC:A6:32:86:F2:B6", "VenueID": "7cc42c86-1c29-447c-99f5-0f9953e3668a", "VenueName": "One Eyed Dog"});
 
-    for (const beaconListKey in beaconList) {
-        const currentBeacon = await Dynamo.get('BeaconAddr', beaconListKey, beaconsTable).catch(err => {
+    for (let beaconListKey in beaconList) {
+        let beaconKey = "B#"+beaconList[beaconListKey];
+        const currentBeacon = await Dynamo.get(beaconKey, CheckInBeaconTable).catch(err => {
             console.log("Error in dynamo get", err);
             return null;
         });

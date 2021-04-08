@@ -26,7 +26,7 @@ provider:
   lambdaHashingVersion: 20201221
   profile: serverlessUser
   environment:
-    beaconsTable: ${self:custom.beaconsTable}
+    CheckInBeaconTable: ${self:custom.CheckInBeaconTable}
   iamRoleStatements:
       - Effect: Allow
         Action:
@@ -70,7 +70,7 @@ provider:
 #    - exclude-me-dir/**
 
 custom:
-  beaconsTable: beacons-table
+  CheckInBeaconTable: check-in-beacon-table
 
 functions:
   verifyBeacons:
@@ -127,21 +127,21 @@ resources:
     BeaconTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.beaconsTable}
+        TableName: ${self:custom.CheckInBeaconTable}
         AttributeDefinitions:
-          - AttributeName: BeaconAddr
+          - AttributeName: ID
             AttributeType: S
           - AttributeName: VenueID
             AttributeType: S
           - AttributeName: VenueName
             AttributeType: S
-          - AttributeName: CheckInID
+          - AttributeName: ClientID
             AttributeType: S
         KeySchema:
-          - AttributeName: BeaconAddr
+          - AttributeName: ID
             KeyType: HASH
         GlobalSecondaryIndexes:
-          - IndexName: BeaconAddr-Venue-index
+          - IndexName: Venue-index
             KeySchema:
               - AttributeName: VenueID
                 KeyType: HASH
@@ -149,9 +149,9 @@ resources:
                 KeyType: RANGE
             Projection:
               ProjectionType: "ALL"
-          - IndexName: BeaconAddr-Check-In-index
+          - IndexName: Check-In-index
             KeySchema:
-              - AttributeName: CheckInID
+              - AttributeName: ClientID
                 KeyType: HASH
             Projection:
                 ProjectionType: "ALL"

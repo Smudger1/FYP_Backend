@@ -3,12 +3,11 @@ const AWS = require('aws-sdk');
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
 const Dynamo = {
-    async get(GivenKey, ID, TableName){
+    async get(ID, TableName){
         const params = {
             TableName,
             Key:{
-                //"VenueID": "906eaf8c-330c-41b9-969f-efe99b6477b2"
-                "BeaconAddr": "DC:A6:32:86:F2:B2"
+                ID
             }
         };
 

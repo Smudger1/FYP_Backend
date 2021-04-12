@@ -8,24 +8,12 @@ exports.handler = async event => {
 
     if (!event.body) {
         // Failed without id
-        return Responses._400({message: 'Missing list of beacons'});
+        return Responses._400({message: 'Missing Data'});
     }
-    const body = JSON.parse(event.body)
-    if (!body.beacons){
-        return Responses._400({message: 'Missing list of beacons'});
-    }
+    const body = JSON.parse(event.body);
 
     const beaconList = body.beacons;
     let confirmedList = [];
-
-    /*
-        TODO:
-         - Remove sample data
-         - Add if statement for B# in IDs
-     */
-
-    // Sample Data - for testing
-    confirmedList.push({"ID": "B#DC:A6:32:86:F2:B6", "VenueID": "7cc42c86-1c29-447c-99f5-0f9953e3668a", "VenueName": "One Eyed Dog"});
 
     for (let beaconListKey in beaconList) {
         let beaconKey = "B#"+beaconList[beaconListKey];

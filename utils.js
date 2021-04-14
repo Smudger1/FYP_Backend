@@ -12,7 +12,8 @@ module.exports.createStore = () => {
         operatorsAliases,
         define: {
             timestamps: false,
-        }
+        },
+        logging: false,
     });
 
     db

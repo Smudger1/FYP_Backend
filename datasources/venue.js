@@ -11,15 +11,12 @@ class VenueAPI extends RESTDataSource {
     }
 
     async getVenueById({ id }) {
-        console.log(id)
         const res = await this.store.Venues.findAll({
             where: { id },
         });
-        if (res && res.length){
-            console.log("This should work")
+        if (res && res.length){ // If found
             return res[0].dataValues;
-        }else{
-            console.log("This didn't work")
+        }else{ // else
             return {};
         }
     }

@@ -13,41 +13,32 @@ class BeaconAPI extends RESTDataSource {
     async verifyBeacons({ id }) {
         let results = [];
 
-        console.log(id)
-
         for (const beaconAddr of id) {
             const res = await this.verifyBeacon({ beaconAddr });
             if (res) results.push(res);
-            console.log(results)
         }
 
         return results;
     }
 
     async verifyBeacon({ beaconAddr }) {
-        console.log(beaconAddr)
         const res = await this.store.Beacons.findAll({
             where: { beaconAddr },
         });
         if (res && res.length){
-            console.log("This should work")
             return res[0].dataValues;
         }else{
-            console.log("This didn't work")
             return null;
         }
     }
 
     async getBeaconById({ beaconAddr }) {
-        console.log(beaconAddr)
         const res = await this.store.Beacons.findAll({
             where: { beaconAddr },
         });
         if (res && res.length){
-            console.log("This should work")
             return res[0].dataValues;
         }else{
-            console.log("This didn't work")
             return {};
         }
     }

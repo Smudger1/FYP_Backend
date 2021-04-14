@@ -11,13 +11,6 @@ const CheckInAPI = require('./datasources/checkIns');
 const store = createStore();
 
 const server = new ApolloServer({
-    /*
-    context: ({ event, context }) => ({
-        headers: event.headers,
-        functionName: context.functionName,
-        event,
-        context,
-    }),*/
     dataSources: () => ({
         beaconAPI: new BeaconAPI({store}),
         venueAPI: new VenueAPI({store}),
@@ -30,8 +23,6 @@ const server = new ApolloServer({
     },
     introspection: true,
 });
-
-console.log(store);
 
 server.listen(5000).then(() => {
     console.log(`

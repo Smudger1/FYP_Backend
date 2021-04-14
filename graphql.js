@@ -6,6 +6,7 @@ const resolvers = require('./resolvers');
 
 const BeaconAPI = require('./datasources/beacon');
 const VenueAPI = require('./datasources/venue');
+const CheckInAPI = require('./datasources/checkIns');
 
 const store = createStore();
 
@@ -20,6 +21,7 @@ const server = new ApolloServer({
     dataSources: () => ({
         beaconAPI: new BeaconAPI({store}),
         venueAPI: new VenueAPI({store}),
+        checkInAPI: new CheckInAPI({store}),
     }),
     typeDefs,
     resolvers,

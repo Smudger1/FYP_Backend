@@ -21,16 +21,54 @@ module.exports = {
     Date: dateScalar,
 
     Query: {
-        verifyBeacons: async(_, { id }, {dataSources}) => {
+        verifyBeacons: async (_, { id }, {dataSources}) => {
             console.log(id)
             const results = await dataSources.beaconAPI.verifyBeacons({ id });
 
             return results;
         },
+        checkInsByUser: async (_, { user }, {dataSources}) => {
+            const results = await dataSources.checkInAPI.getCheckInByUser({ user });
+
+            return results;
+        },
+    },
+    Mutation: {
+        createNewCheckIn: async (_, { beacon, user}, {dataSources}) => {
+            const result = await dataSources.checkInAPI.createNewCheckIn({ beaconAddr: beacon, user });
+            console.log(result)
+            return {
+                success: result,
+                message:
+                    result
+                        ? 'Successfully Checked In'
+                        : `Check In Failed`,
+            };
+        },
+        updateCheckOut: async (_, {id}, {dataSources}) => {
+            const result = await dataSources.checkInAPI.updateCheckOut({id});
+
+            console.log(result)
+
+            return{
+                success: result,
+                message:
+                    result
+                        ? 'Successfully Checked In'
+                        : `Check In Failed`,
+            };
+        },
     },
     Beacon: {
-        venue: async(beacon, _, {dataSources}) => {
+        venue: async (beacon, _, {dataSources}) => {
             const results = await dataSources.venueAPI.getVenueById({ id: beacon.venueId });
+
+            return results;
+        }
+    },
+    CheckIn: {
+        beacon: async (checkIn, _, {dataSources}) => {
+            const results = await dataSources.beaconAPI.getBeaconById({ beaconAddr: checkIn.beaconAddr });
 
             return results;
         }

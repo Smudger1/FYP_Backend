@@ -37,6 +37,20 @@ class BeaconAPI extends RESTDataSource {
             return null;
         }
     }
+
+    async getBeaconById({ beaconAddr }) {
+        console.log(beaconAddr)
+        const res = await this.store.Beacons.findAll({
+            where: { beaconAddr },
+        });
+        if (res && res.length){
+            console.log("This should work")
+            return res[0].dataValues;
+        }else{
+            console.log("This didn't work")
+            return {};
+        }
+    }
 }
 
 module.exports = BeaconAPI;

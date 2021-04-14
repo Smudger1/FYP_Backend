@@ -48,6 +48,7 @@ module.exports.createStore = () => {
             autoIncrement: true,
         },
         beaconAddr: Sequelize.STRING,
+        user: Sequelize.STRING,
         dateIn: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
@@ -69,19 +70,6 @@ module.exports.createStore = () => {
         // Now the `users` table in the database corresponds to the model definition
         return null;
     });
-
-    /*
-
-    const checkIns = db.define('check_in', {
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        beaconAddr: Sequelize.STRING,
-        dateIn: Sequelize.DATE,
-        dateOut: Sequelize.DATE,
-    }); */
 
     return {
         Beacons,

@@ -1,5 +1,5 @@
-//const { ApolloServer, gql } = require('apollo-server-lambda');
-const { ApolloServer } = require('apollo-server');
+const { ApolloServer, gql } = require('apollo-server-lambda');
+//const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const { createStore } = require('./utils');
 const resolvers = require('./resolvers');
@@ -24,15 +24,16 @@ const server = new ApolloServer({
     introspection: true,
 });
 
+/*
 server.listen(5000).then(() => {
     console.log(`
         Server is running!
         Listening on port 5000
         Explore at https://studio.apollographql.com/dev
     `)
-});
+});*/
 
-/*
+
 exports.graphqlHandler = server.createHandler({
     cors: {
         origin: true,
@@ -40,4 +41,3 @@ exports.graphqlHandler = server.createHandler({
     },
 });
 
- */

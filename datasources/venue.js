@@ -20,6 +20,14 @@ class VenueAPI extends RESTDataSource {
             return {};
         }
     }
+
+    async getVenueBeacons({ venueId }) {
+        const res = await this.store.Beacons.findAll({
+            where: { venueId }
+        });
+
+        return res.map(l => l.dataValues).filter(l => !!l)
+    }
 }
 
 module.exports = VenueAPI;

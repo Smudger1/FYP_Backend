@@ -24,6 +24,8 @@ const typeDefs = gql `
     type Query {
       verifyBeacons(id: [ID]!): [Beacon]
       checkInsByUser(user: String!): [CheckIn]
+      allVenueCheckIns(venueId: ID!): [CheckIn]
+      currentVenueCount(venueId: ID!): VenueCountResponse!
     }
 
     type Mutation {
@@ -34,6 +36,10 @@ const typeDefs = gql `
     type CheckInMutationResponse {
       success: Boolean!
       message: String
+    }
+    
+    type VenueCountResponse{
+        count: Int
     }
 `;
 

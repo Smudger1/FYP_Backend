@@ -32,6 +32,20 @@ module.exports = {
 
             return results;
         },
+        allVenueCheckIns: async (_, { venueId }, {dataSources}) => {
+            const beacons = await dataSources.venueAPI.getVenueBeacons({venueId});
+
+            const results = await dataSources.checkInAPI.getAllVenueCheckIns({beacons});
+
+            return results;
+        },
+        currentVenueCount: async (_, { venueId }, {dataSources}) => {
+            const beacons = await dataSources.venueAPI.getVenueBeacons({venueId});
+
+            const count = await dataSources.checkInAPI.getCurrentVenueCount({beacons});
+
+            return {count};
+        }
     },
     Mutation: {
         createNewCheckIn: async (_, { beacon, user}, {dataSources}) => {
@@ -54,8 +68,8 @@ module.exports = {
                 success: result,
                 message:
                     result
-                        ? 'Successfully Checked In'
-                        : `Check In Failed`,
+                        ? 'Successfully Checked Out'
+                        : `Check Out Failed`,
             };
         },
     },
@@ -71,6 +85,6 @@ module.exports = {
             const results = await dataSources.beaconAPI.getBeaconById({ beaconAddr: checkIn.beaconAddr });
 
             return results;
-        }
+        },
     }
 }

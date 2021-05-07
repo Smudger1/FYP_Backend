@@ -39,6 +39,35 @@ class CheckInAPI extends RESTDataSource {
 
         return res[0];
     }
+
+    async getAllVenueCheckIns({beacons}){
+        let finalRes = []
+
+        for (const beacon of beacons) {
+            const res = await this.store.CheckIns.findAll({
+                where: { beaconAddr: beacon.beaconAddr },
+            });
+            finalRes.push(res[0]);
+        }
+
+        return finalRes;
+    }
+
+    async getCurrentVenueCount({beacons}){
+        let finalRes = []
+
+        for (const beacon of beacons) {
+            const res = await this.store.CheckIns.findAll({
+                where: { beaconAddr: beacon.beaconAddr, dateOut: null },
+            });
+
+            for (const checkIn of res){
+                finalRes.push(checkIn);
+            }
+        }
+
+        return finalRes.length;
+    }
 }
 
 module.exports = CheckInAPI;

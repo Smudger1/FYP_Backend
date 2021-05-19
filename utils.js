@@ -27,11 +27,15 @@ module.exports.createStore = () => {
 
     const Venues = db.define('venue', {
         id: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             primaryKey: true,
-            autoIncrement: true,
         },
         venueName: Sequelize.STRING,
+        venueAddr1: Sequelize.STRING,
+        venueAddr2: Sequelize.STRING,
+        venuePostcode: Sequelize.STRING,
+        venueOpen: Sequelize.STRING,
+        venueClose: Sequelize.STRING
     });
 
     const Beacons = db.define('beacon', {
@@ -39,14 +43,13 @@ module.exports.createStore = () => {
             type: Sequelize.STRING,
             primaryKey: true,
         },
-        venueId: Sequelize.INTEGER,
+        venueId: Sequelize.STRING,
     });
 
     const CheckIns = db.define('check_in', {
         id: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             primaryKey: true,
-            autoIncrement: true,
         },
         beaconAddr: Sequelize.STRING,
         user: Sequelize.STRING,

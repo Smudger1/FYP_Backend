@@ -45,6 +45,11 @@ module.exports = {
             const count = await dataSources.checkInAPI.getCurrentVenueCount({beacons});
 
             return {count};
+        },
+        venue: async (_, { id }, {dataSources}) => {
+            const venue = await dataSources.venueAPI.getVenueById({id});
+
+            return venue;
         }
     },
     Mutation: {
@@ -72,12 +77,16 @@ module.exports = {
                         : `Check Out Failed`,
             };
         },
-    },
-    Beacon: {
-        venue: async (beacon, _, {dataSources}) => {
-            const results = await dataSources.venueAPI.getVenueById({ id: beacon.venueId });
+        updateVenueDetails: async (_, {id, venueName, venueAddr1, venueAddr2, venuePostcode, venueOpen, venueClose}, {dataSources}) => {
+            const result = await dataSources.venueAPI.updateVenueDetails({id, venueName, venueAddr1, venueAddr2, venuePostcode, venueOpen, venueClose});
 
-            return results;
+            return{
+                success: result,
+                message:
+                    result
+                        ? 'Successfully Updated'
+                        : `Update Failed`,
+            }
         }
     },
     CheckIn: {

@@ -11,6 +11,11 @@ const typeDefs = gql `
     type Venue {
       id: ID!
       venueName: String!
+      venueAddr1: String!
+      venueAddr2: String!
+      venuePostcode: String!
+      venueOpen: String!
+      venueClose: String!  
     }
 
     type CheckIn {
@@ -26,14 +31,16 @@ const typeDefs = gql `
       checkInsByUser(user: String!): [CheckIn]
       allVenueCheckIns(venueId: ID!): [CheckIn]
       currentVenueCount(venueId: ID!): VenueCountResponse!
+      venue(id: ID!): Venue  
     }
 
     type Mutation {
-      createNewCheckIn(beacon: ID!, user: String!): CheckInMutationResponse!
-      updateCheckOut(id: ID!): CheckInMutationResponse!
+      createNewCheckIn(beacon: ID!, user: String!): MutationResponse!
+      updateCheckOut(id: ID!): MutationResponse!
+      updateVenueDetails(id:ID!, venueName: String!, venueAddr1: String!, venueAddr2: String, venuePostcode: String!, venueOpen: String!, venueClose: String!): MutationResponse!  
     }
 
-    type CheckInMutationResponse {
+    type MutationResponse {
       success: Boolean!
       message: String
     }

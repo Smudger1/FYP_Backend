@@ -26,7 +26,17 @@ class VenueAPI extends RESTDataSource {
             where: { venueId }
         });
 
-        return res.map(l => l.dataValues).filter(l => !!l)
+        return res.map(l => l.dataValues).filter(l => !!l);
+    }
+
+    async updateVenueDetails({id, venueName, venueAddr1, venueAddr2, venuePostcode, venueOpen, venueClose}){
+        const res = await this.store.Venues.update({ venueName, venueAddr1, venueAddr2, venuePostcode, venueOpen, venueClose},{
+            where: {
+                id: id
+            }
+        });
+
+        return res[0];
     }
 }
 

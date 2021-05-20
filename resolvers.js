@@ -22,7 +22,6 @@ module.exports = {
 
     Query: {
         verifyBeacons: async (_, { id }, {dataSources}) => {
-            console.log(id)
             const results = await dataSources.beaconAPI.verifyBeacons({ id });
 
             return results;
@@ -53,9 +52,8 @@ module.exports = {
         }
     },
     Mutation: {
-        createNewCheckIn: async (_, { beacon, user}, {dataSources}) => {
-            const result = await dataSources.checkInAPI.createNewCheckIn({ beaconAddr: beacon, user });
-            console.log(result)
+        createNewCheckIn: async (_, {beacon, user}, {dataSources}) => {
+            const result = await dataSources.checkInAPI.createNewCheckIn({beaconAddr: beacon, user });
             return {
                 success: result,
                 message:
@@ -66,8 +64,6 @@ module.exports = {
         },
         updateCheckOut: async (_, {id}, {dataSources}) => {
             const result = await dataSources.checkInAPI.updateCheckOut({id});
-
-            console.log(result)
 
             return{
                 success: result,

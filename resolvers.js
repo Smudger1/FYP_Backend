@@ -91,5 +91,12 @@ module.exports = {
 
             return results;
         },
+    },
+    Beacon: {
+        venue: async (beacon, _, {dataSources}) => {
+            const results = await dataSources.venueAPI.getVenueById({id: beacon.venueId});
+
+            return results;
+        }
     }
 }

@@ -1,5 +1,6 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
+
 const { v4: uuidv4 } = require('uuid');
 
 class CheckInAPI extends RESTDataSource {
@@ -13,6 +14,7 @@ class CheckInAPI extends RESTDataSource {
     }
 
     async getCheckInByUser({ user }) {
+        console.log(user)
         const res = await this.store.CheckIns.findAll({
             where: { user },
         });
@@ -33,7 +35,7 @@ class CheckInAPI extends RESTDataSource {
         const res = await this.store.CheckIns.update(
             { dateOut: Date.now() },
             {
-                where: { id },
+                where: { user: id },
             });
 
         return res[0];
